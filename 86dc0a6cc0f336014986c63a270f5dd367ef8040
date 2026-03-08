@@ -1,0 +1,704 @@
+src/core/rules/storage.ts
+  cdbfd5991376bcd3 4,7,9-12,16-18,20-22
+vite.config.ts
+  cdbfd5991376bcd3 5,7-10,13-14,19,22-31,33-41,43-49
+  e9a3a303b56d2342 1,11-12,15-16,21,42
+scripts/postbuild-ui.mjs
+  cdbfd5991376bcd3 1-8
+package.json
+  e9a3a303b56d2342 8
+  cdbfd5991376bcd3 29-30
+src/ui/main.tsx
+  cdbfd5991376bcd3 6-15,18-26
+src/llm/providerStorage.ts
+  cdbfd5991376bcd3 4,7,9-12,16-18,20-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "86dc0a6cc0f336014986c63a270f5dd367ef8040",
+  "prompts": {
+    "cdbfd5991376bcd3": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "bdcaa8ec-77a9-49c3-8c24-1de74acf89b0",
+        "model": "gpt-5.4-medium"
+      },
+      "human_author": "kenan <kenansharifov400@gmail.com>",
+      "messages": [
+        {
+          "type": "user",
+          "text": "build figma plugin that consists of those components:\n1. user upload project's design system rules in md file\n2. whenever designer make changes attached LLM should validate is added component whether follow the rules or not\n3. client also should be able to should interact with input box to ask about rules to LLM . \n4. there has to be scan design button to check current page and say problems that is conflict with rules. \n\n---\n1. plugin should use event listener to handle real time chages from figma file . \n2. has to accept different ai models with token , or with local LLMs",
+          "timestamp": "2026-03-08T17:19:25.016Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m going to inspect the repository structure first so I can ground the plan in what already exists, then I’ll ask only the minimum questions if the architecture choice is still ambiguous.",
+          "timestamp": "2026-03-08T17:21:39.488Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "**/*",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "The repository looks empty, so the main choices that affect the plan are the initial plugin stack and how broadly to support model providers.",
+          "timestamp": "2026-03-08T17:22:34.091Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I have the two architecture choices I needed. I’m doing one short pass on Figma plugin constraints now so the plan reflects the right event model and provider boundaries before I lock it in.",
+          "timestamp": "2026-03-08T17:22:48.688Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Figma plugin documentchange event API currentPage selectionchange UI message passing manifest main ui latest",
+            "toolCallId": "call_yBClc97q0O27tH5ljrI2AST9\nfc_0569d5e23217fe130169adb06a0af8819a823b8eac85fc1875"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Figma plugin network requests UI fetch plugin code limitations local LLM ollama from plugin UI latest",
+            "toolCallId": "call_IB5nxwC32gbaH9v5Pt8zjnkj\nfc_0569d5e23217fe130169adb06a0b08819a9b9ded994808fa8a"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve confirmed the repo is a blank start and the recommended Figma event model for this. I’m turning that into a concrete implementation plan with the default stack you chose: React/Vite UI plus named provider adapters.",
+          "timestamp": "2026-03-08T17:23:01.329Z"
+        },
+        {
+          "type": "user",
+          "text": "Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.\n\nTo-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.",
+          "timestamp": "2026-03-08T17:24:07.941Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m starting the implementation from the empty repo by scaffolding the plugin foundation first, then I’ll layer in shared contracts, rules ingestion, providers, real-time validation, and the UI in that order.",
+          "timestamp": "2026-03-08T17:24:21.045Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "todo_write",
+          "input": {}
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {}
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "*",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve confirmed this is a true blank slate, so I’m creating the scaffold deliberately instead of trying to retrofit an existing plugin layout. Next I’m putting down the build config and base entrypoints so the rest of the system has a stable shape.",
+          "timestamp": "2026-03-08T17:24:35.580Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The next step is scaffolding the TypeScript/React/Vite base so I can wire the Figma-specific runtime into a normal build pipeline instead of hand-assembling every low-level file.",
+          "timestamp": "2026-03-08T17:25:06.992Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "**/*",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "The scaffold is in place. I’m replacing the template app with the plugin structure now and wiring the build so it emits a Figma `code.js` plus a React-backed UI instead of a normal single-page app.",
+          "timestamp": "2026-03-08T17:25:18.790Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m updating the build and compiler configuration first so the plugin controller and the UI can coexist cleanly in one project without fighting over browser-versus-Figma globals.",
+          "timestamp": "2026-03-08T17:27:13.103Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m wiring the UI now: upload, provider configuration, chat, and findings all need to coexist in one plugin window while also serving as the network-facing side of the architecture.",
+          "timestamp": "2026-03-08T17:30:26.913Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I hit an important implementation detail in Figma’s runtime: the UI isn’t simply “loaded from `manifest.json`” the same way a web app serves HTML, so I’m verifying the cleanest way to keep the React/Vite build while still opening the plugin UI correctly.",
+          "timestamp": "2026-03-08T17:32:15.182Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Figma plugin showUI manifest ui path separate html without __html__ latest",
+            "toolCallId": "call_bT3Udj54lfnhnfjHpVUEmpQi\nfc_01e3a4bfb1d5c03c0169adb29f3e88819488a4c40de0a31ef4"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Vite Figma plugin __html__ raw html rollup latest",
+            "toolCallId": "call_koENNnAISNBOwG7Xc8hfB1Zr\nfc_01e3a4bfb1d5c03c0169adb29f3e948194a3f510381ee3aee4"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "The core file layout is now in place. I’m installing dependencies and compiling next so I can catch type/runtime mismatches before moving on to any cleanup and finishing passes.",
+          "timestamp": "2026-03-08T17:33:33.498Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The build is clean now, which means the scaffold, shared contracts, parser, providers, plugin runtime, and UI are all compiling together. I’m doing one final verification pass on the edited files and then I’ll close out the remaining todo states as accurately as possible.",
+          "timestamp": "2026-03-08T17:35:15.075Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "**/*",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "I can’t truly mount this inside your Figma workspace from here, but I can still do a browser-level smoke test of the built UI and verify the shipped bundle is loadable before I wrap up.",
+          "timestamp": "2026-03-08T17:35:45.659Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "todo_write",
+          "input": {}
+        },
+        {
+          "type": "assistant",
+          "text": "Implemented the plugin in the empty repo with a React/Vite UI, Figma main-thread runtime, markdown rule ingestion, named model providers, live validation triggers, page scanning, and rules chat.\n\nThe main pieces are in `manifest.json`, `vite.config.ts`, `src/plugin/code.ts`, `src/ui/App.tsx`, `src/shared/types.ts`, `src/core/rules/parser.ts`, `src/core/scan/nodeSnapshot.ts`, `src/core/validation/*`, and `src/llm/providers/*`. The plugin now persists uploaded rules and provider settings, listens to `documentchange`, `selectionchange`, and `currentpagechange`, debounces live checks, and sends scan/chat/validation requests through the typed message bridge.\n\nVerification passed for `npm run build` and `npm run lint`, and I also smoke-checked the built UI structure through a local preview. I could not attach the plugin to a real Figma file from here, so the remaining real-world check is importing `manifest.json` into Figma and confirming `documentchange` behavior with your actual provider setup. One practical caveat: the plan routed provider calls through the UI, so hosted providers may still depend on their CORS behavior, while local endpoints such as Ollama/custom local servers are covered directly.",
+          "timestamp": "2026-03-08T17:37:18.665Z"
+        },
+        {
+          "type": "user",
+          "text": "how can I start and test it",
+          "timestamp": "2026-03-08T17:37:46.564Z"
+        },
+        {
+          "type": "assistant",
+          "text": "To start it locally:\n\n1. In the repo root, run `npm install`\n2. Build the plugin with `npm run build`\n3. Open Figma, then go to `Plugins -> Development -> Import plugin from manifest...`\n4. Select `manifest.json` from `/home/kenan/repositories/figma-doc-resolver`\n5. Run it from `Plugins -> Development -> Figma Rules Plugin`\n\nFor a quick UI-only smoke test outside Figma, you can use:\n\n```bash\nnpm run preview\n```\n\nThen open the preview URL in your browser. That only verifies the UI renders; the real plugin behavior needs Figma.\n\n## How to test in Figma\n\nUse this sequence:\n\n1. Launch the plugin.\n2. Upload a `.md` file with your design-system rules.\n3. Fill in provider settings:\n   - `OpenAI`, `Anthropic`, `Gemini`: use your API key and model.\n   - `Ollama`: usually use base URL `http://localhost:11434` and your local model name.\n   - `Custom`: point it at an OpenAI-compatible endpoint.\n4. Save the provider config.\n5. On the Figma canvas, create or modify components/nodes.\n6. Watch the `Live Findings` section update from the `documentchange` listener.\n7. Use `Ask Rules` to chat about the uploaded rules.\n8. Click `Scan Design` to scan the current page.\n\n## Useful commands\n\n```bash\nnpm run build\nnpm run lint\nnpm run preview\n```\n\n## What to verify\n\n- Rules stay available after closing and reopening the plugin.\n- Provider config saves and can produce a response.\n- Editing or creating nodes triggers live validation.\n- `Ask Rules` returns answers grounded in the uploaded markdown.\n- `Scan Design` reports conflicts on the current page.\n\n## Likely gotcha\n\nBecause model requests are made from the plugin UI, some providers/local servers may fail if they do not allow requests from Figma’s plugin iframe origin. If that happens, use:\n- `Ollama` or another local server configured to allow requests, or\n- a small proxy/custom backend with permissive CORS and point the `Custom` provider at it.\n\nIf you want, I can add a `dev`/watch script next so rebuilding during plugin development is faster.",
+          "timestamp": "2026-03-08T17:38:02.553Z"
+        },
+        {
+          "type": "user",
+          "text": "do I need figma desktop fior uploading plugin?",
+          "timestamp": "2026-03-08T17:46:02.333Z"
+        },
+        {
+          "type": "assistant",
+          "text": "No. You can load a development plugin from the web version of Figma too.\n\nUse either:\n\n- Figma desktop app\n- [figma.com](https://figma.com) in the browser\n\nIn both cases, the usual flow is:\n\n1. Open a Figma file\n2. Go to `Plugins`\n3. Open `Development`\n4. Choose `Import plugin from manifest...`\n5. Pick the repo’s `manifest.json`\n\nA couple of practical notes:\n\n- The desktop app is often a bit smoother for plugin development, but it is not required.\n- If you want to use a local LLM like `Ollama` at `http://localhost:11434`, desktop can sometimes be more reliable depending on local network/CORS behavior.\n- For hosted APIs like OpenAI/Anthropic/Gemini, browser Figma is usually fine as long as the provider endpoint works with the plugin UI’s request constraints.\n\nIf you want, I can give you the exact click path for importing this plugin in Figma web.",
+          "timestamp": "2026-03-08T17:46:05.622Z"
+        },
+        {
+          "type": "user",
+          "text": "i ddint find import\\",
+          "timestamp": "2026-03-08T17:46:32.177Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking the current Figma UI flow so I can give you the exact place where the development import moved to.",
+          "timestamp": "2026-03-08T17:46:38.060Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Figma import plugin from manifest development current UI 2026",
+            "toolCallId": "call_9fwVnig4XAqTwwmYG20mhKJY\nfc_0e88df983dbf04a70169adb5fe1d488199bb149ac8a23c20ee"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Figma plugins development import from manifest missing where is it web app",
+            "toolCallId": "call_A5iFXytLVoS386cQk1RJFyWV\nfc_0e88df983dbf04a70169adb5fe1d54819994598b329b5801f1"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "Yes, for local `manifest.json` import you likely need the Figma desktop app.\n\nFigma’s current web app appears not to expose `Import from manifest...`, which is why you’re not finding it there. In desktop, the usual path is:\n\n1. Open the Figma desktop app\n2. Open any `.fig` file\n3. Go to `Plugins`\n4. Open `Development`\n5. Click `Import plugin from manifest...`\n6. Select `/home/kenan/repositories/figma-doc-resolver/manifest.json`\n\nIf `Development` still doesn’t show up, try the quick action search:\n\n1. Press `Cmd/Ctrl + /`\n2. Search for `Import plugin from manifest`\n\nOne important note: for this project, import the root `manifest.json`, not anything inside `dist`.\n\nIf you want, I can also give you the exact steps after import to verify the plugin is running correctly.",
+          "timestamp": "2026-03-08T17:46:49.406Z"
+        },
+        {
+          "type": "user",
+          "text": "what name would be great for that project?",
+          "timestamp": "2026-03-08T17:48:21.374Z"
+        },
+        {
+          "type": "assistant",
+          "text": "A strong name should signal three things quickly: `Figma`, `design rules`, and `AI review`.\n\nGood options:\n\n- `RuleFrame`\n- `Figma Guard`\n- `Design Rule Copilot`\n- `Figma Rule Check`\n- `System Lens`\n- `Token Guard`\n- `Design QA Copilot`\n- `RuleScan`\n- `Frame Audit`\n- `SpecGuard`\n\nIf you want something more product-like and brandable:\n\n- `Rulia`\n- `FrameWise`\n- `Designa`\n- `Lintora`\n- `Ruleloom`\n- `Guideline AI`\n\nMy top picks for your use case:\n\n1. `RuleFrame`  \n2. `Figma Guard`  \n3. `RuleScan`  \n4. `Design Rule Copilot`  \n5. `SpecGuard`\n\nIf you want, I can give you:\n- `10 more brandable names`\n- `10 more technical/SaaS-style names`\n- `the best name specifically for a Figma plugin listing`",
+          "timestamp": "2026-03-08T17:48:23.744Z"
+        },
+        {
+          "type": "user",
+          "text": "isn't there alternatives tool for that project",
+          "timestamp": "2026-03-08T17:48:31.367Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking what comparable tools exist so I can separate close competitors from partial alternatives like design linting or documentation plugins.",
+          "timestamp": "2026-03-08T17:48:36.647Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Figma plugin design system lint rules plugin alternatives design lint spelll checker eightshapes specs 2026",
+            "toolCallId": "call_JpFk3xVq9tTBglQYn6rA1Ibi\nfc_06cdd7c1ed72d1260169adb675ab248198babc5c405627df5e"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "AI Figma plugin design review design system validation rules chat alternatives 2026",
+            "toolCallId": "call_LwfiMDyfmd9mDIB9BTFhXH2R\nfc_06cdd7c1ed72d1260169adb675ab308198a2452cebfa065b1b"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "Yes, there are alternatives, but most only cover part of what your plugin is trying to do.\n\nClosest alternatives:\n\n- `Design Lint`\n  Checks consistency and common design issues in Figma. Good for rule-based scanning, but not really for uploading your own Markdown rules and chatting with an LLM about them.\n- `ReviewKit`\n  More focused on accessibility review. Strong for WCAG-type checks, narrower than your idea.\n- `AI Design Reviewer` / `Rumin` / `Exdera`\n  These are closer on the AI review side. They can analyze designs and provide feedback, but they’re generally broader AI design critique tools, not specifically “upload our team’s MD rules and validate against them in real time.”\n- `Specs Plugin`\n  More about documenting components/design systems than enforcing them with live AI validation.\n\nWhat makes your project different is the combination of:\n\n- custom rule source from a `.md` file\n- real-time Figma event listening\n- rule-grounded chat\n- page scan against team-specific rules\n- support for multiple providers and local LLMs\n\nSo the alternatives exist, but they tend to be:\n- lint-only\n- accessibility-only\n- AI-review-only\n- documentation-only\n\nYour concept sits in the middle of all four.\n\nIf you want, I can give you:\n1. a competitor table\n2. the market gap for this plugin\n3. the features that would make it stand out from existing tools",
+          "timestamp": "2026-03-08T17:48:48.013Z"
+        },
+        {
+          "type": "user",
+          "text": "push to that repo: \ngit@github.com:sharifli4/figma-guard.git",
+          "timestamp": "2026-03-08T17:49:43.063Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking the repository state first so I can push safely without guessing the branch or remote setup.",
+          "timestamp": "2026-03-08T17:49:55.128Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The target repo already has a `main` branch, while this workspace is not a git repo yet. I’m initializing local git and fetching remote history next so I can merge safely instead of overwriting anything.",
+          "timestamp": "2026-03-08T17:50:09.312Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve confirmed the local project is entirely uncommitted and the remote only has a single initial commit. I’m checking the remote tree now so I can pull in anything already there before committing and pushing.",
+          "timestamp": "2026-03-08T17:50:31.666Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I found one remote file, `LICENSE`, so I’m rebasing the local branch state onto the remote’s existing initial commit before I commit your plugin files. That keeps the remote history intact.",
+          "timestamp": "2026-03-08T17:50:59.158Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve got the local branch aligned with the remote history and only the new plugin files are pending. I’m staging, committing, and pushing them to `main` now.",
+          "timestamp": "2026-03-08T17:51:25.334Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Pushed to `git@github.com:sharifli4/figma-guard.git` on `main`.\n\nThe remote now includes commit `294ef19` with the Figma plugin scaffold, markdown rules upload, multi-provider LLM support, live validation hooks, rules chat, and page scan flow. The branch is tracking `origin/main`, and the working tree is clean.",
+          "timestamp": "2026-03-08T17:51:33.725Z"
+        },
+        {
+          "type": "user",
+          "text": "then this project is unique?",
+          "timestamp": "2026-03-08T17:51:52.664Z"
+        },
+        {
+          "type": "assistant",
+          "text": "It looks differentiated, not fully unique.\n\nThe pieces already exist separately in the market:\n\n- design linting plugins exist\n- accessibility review plugins exist\n- AI design review plugins exist\n- design-system documentation/spec plugins exist\n\nWhat seems less common is your exact combination:\n\n- upload your own team rules as Markdown\n- keep those rules as the source of truth\n- validate Figma changes in near real time\n- chat with the same rule set\n- support both hosted models and local LLMs\n\nSo the honest answer is:\n\n- `Not unique in category`\n- `Potentially unique in product combination`\n\nThat is usually enough. Most good products are not invented from zero; they win by combining capabilities in a way that fits a real workflow better than existing tools.\n\nThe real risk is that competitors may say:\n- “we already do AI review”\n- “we already do linting”\n- “we already do design system checks”\n\nYour differentiation should be phrased as:\n- `team-specific rule grounding`\n- `real-time rule enforcement inside Figma`\n- `BYO model support, including local LLMs`\n- `rules upload + scan + chat in one plugin`\n\nIf you want, I can turn this into:\n1. a sharp one-line USP\n2. a landing page positioning statement\n3. a competitor comparison matrix",
+          "timestamp": "2026-03-08T17:51:56.054Z"
+        },
+        {
+          "type": "user",
+          "text": "write readme for project",
+          "timestamp": "2026-03-08T17:52:08.493Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m drafting a project-level `README.md` based on the current plugin behavior, setup, provider support, and Figma testing flow so it matches what’s actually implemented.",
+          "timestamp": "2026-03-08T17:52:14.518Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve got enough context from the current implementation. I’m adding a single `README.md` that covers what the plugin does, setup, provider configuration, local testing, and the current limitations around provider access.",
+          "timestamp": "2026-03-08T17:52:21.857Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Added `README.md` with setup, build/test steps, Figma import flow, provider configuration, plugin usage, project structure, and current limitations.\n\nIf you want, I can also push this README to `figma-guard` now.",
+          "timestamp": "2026-03-08T17:52:41.141Z"
+        },
+        {
+          "type": "user",
+          "text": "yes",
+          "timestamp": "2026-03-08T17:52:46.985Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking the current git state and recent commit style first, then I’ll commit the new `README.md` and push it to `main`.",
+          "timestamp": "2026-03-08T17:52:53.282Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Only the new `README.md` is pending, so I’m committing just that file and pushing it to the tracked remote branch now.",
+          "timestamp": "2026-03-08T17:53:12.208Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Pushed the README to `main` in `git@github.com:sharifli4/figma-guard.git`.\n\nLatest commit: `573d12c` - `Add project README`",
+          "timestamp": "2026-03-08T17:53:20.413Z"
+        },
+        {
+          "type": "user",
+          "text": "when uploading figma plugin, figma throws error as :\"Manifest error: invalid value for devAllowedDomains http://127.0.0.1:11434",
+          "timestamp": "2026-03-08T20:42:44.488Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking Figma’s current manifest format for `devAllowedDomains` so I can correct the manifest instead of guessing.",
+          "timestamp": "2026-03-08T20:42:56.866Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "Figma manifest devAllowedDomains invalid value 127.0.0.1 protocol format",
+            "toolCallId": "call_PNJV9BLnJSEql6hR8IaOqvqO\nfc_0d1824d2eabe33fb0169addf50f8b881949968182e3b9d7777"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "The manifest already uses protocol-prefixed URLs, so the likely issue is that Figma rejects the `127.0.0.1` entries specifically. I’m confirming that and then I’ll patch the manifest to the safe form.",
+          "timestamp": "2026-03-08T20:43:11.127Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Figma’s docs allow `localhost` examples, but your error is specifically on the `127.0.0.1` entries. I’m removing those IP-based dev domains and keeping the `localhost` versions, which is the safest manifest format.",
+          "timestamp": "2026-03-08T20:43:22.225Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve patched the manifest. I’m doing a quick lint/check pass on just the manifest-related change, then I’ll tell you exactly what to re-import and what this means for local LLM URLs.",
+          "timestamp": "2026-03-08T20:43:26.782Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Figma is rejecting the `127.0.0.1` entries, so I removed them from `manifest.json` and kept only:\n\n- `http://localhost:11434`\n- `http://localhost:1234`\n\nWhat to do now:\n\n1. Save the file if needed\n2. In Figma, re-import the plugin from `manifest.json`\n3. For local models, use `localhost` in the plugin settings instead of `127.0.0.1`\n\nSo for Ollama, use:\n\n```text\nhttp://localhost:11434\n```\n\nnot:\n\n```text\nhttp://127.0.0.1:11434\n```\n\nIf you want, I can also push this manifest fix to the GitHub repo.",
+          "timestamp": "2026-03-08T20:43:28.742Z"
+        },
+        {
+          "type": "user",
+          "text": "importing that manifest json is enough? what should I do next for local testing as figma plugin",
+          "timestamp": "2026-03-08T20:45:34.052Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Importing `manifest.json` is enough to register the plugin in Figma, but only if you already built the plugin first.\n\n## Local testing flow\n\n1. In the project root, run:\n\n```bash\nnpm install\nnpm run build\n```\n\n2. In Figma desktop:\n   - `Plugins`\n   - `Development`\n   - `Import plugin from manifest...`\n   - choose `manifest.json`\n\n3. Run the plugin from:\n   - `Plugins -> Development -> Figma Rules Plugin`\n\n## After import\n\nOnce the plugin opens, test it in this order:\n\n1. Upload a Markdown rules file\n2. Choose a provider\n3. Save the provider config\n4. Make changes on the Figma page\n5. Check `Live Findings`\n6. Try `Ask Rules`\n7. Click `Scan Design`\n\n## For local LLM testing\n\nIf you want to test with Ollama:\n\n1. Start Ollama locally\n2. Make sure the model exists, for example:\n```bash\nollama list\n```\n3. In the plugin, set:\n   - Provider: `Ollama`\n   - Base URL: `http://localhost:11434`\n   - Model: your installed model name, like `llama3.1`\n4. Save provider config\n5. Upload rules and start editing nodes in Figma\n\n## Important dev detail\n\nEvery time you change code, run:\n\n```bash\nnpm run build\n```\n\nThen in Figma, rerun the plugin. Sometimes you may need to re-import the manifest if the manifest itself changed, but for normal code changes, rebuilding is usually enough.\n\n## Simple local test checklist\n\n- `npm run build` succeeds\n- plugin imports without manifest errors\n- plugin window opens\n- markdown upload works\n- provider config saves\n- local Ollama responds\n- editing nodes triggers validation\n- `Scan Design` returns results\n\nOne important caveat: your current implementation points the manifest at `dist/index.html` and `dist/code.js`, so building before import is mandatory.\n\nIf you want, I can also give you a very small sample `.md` rules file to use for first-time testing.",
+          "timestamp": "2026-03-08T20:45:40.380Z"
+        },
+        {
+          "type": "user",
+          "text": "Error: Syntax error on line 1: Unexpected token ?\n    at u (1039-19d70f9df526f10f.min.js.br:422:45)\n    at async figma_app-6b8f8bcfc9ec537f.min.js.br:232:32406",
+          "timestamp": "2026-03-08T20:50:52.009Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking the built plugin bundle first, because that kind of Figma import/runtime error is usually caused by the generated JavaScript target rather than your manifest.",
+          "timestamp": "2026-03-08T20:51:04.537Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I found the likely cause: the generated `dist/code.js` still contains modern syntax like `??`, and Figma’s plugin runtime is choking on that. I’m lowering the build target and rebuilding so the bundle is compatible with Figma.",
+          "timestamp": "2026-03-08T20:51:22.332Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve changed the build target. Next I’m rebuilding and checking the generated plugin bundle to make sure those unsupported `?` operators are actually gone before you retry in Figma.",
+          "timestamp": "2026-03-08T20:51:29.430Z"
+        },
+        {
+          "type": "assistant",
+          "text": "That error was likely caused by the plugin bundle being built with JS syntax that Figma's runtime doesn't support.\n\nI fixed that by lowering the build target and rebuilding. The generated `dist/code.js` no longer contains the problematic `??` syntax.\n\nWhat to do next:\n\n1. In the repo root, run:\n```bash\nnpm run build\n```\n\n2. In Figma desktop:\n- if the plugin is already imported, try running it again\n- if Figma still shows the same error, remove the dev plugin and re-import `manifest.json`\n\n3. Test again\n\nIf Figma still fails after this, the next most likely issue is the UI packaging rather than the manifest itself, and I can fix that too. The current syntax error should be resolved now.\n\nIf you want, I can also push this compatibility fix to the GitHub repo.",
+          "timestamp": "2026-03-08T20:51:52.293Z"
+        },
+        {
+          "type": "user",
+          "text": "unhandled promise rejection: Throw: Failed to get client storage key \"figma-rules-plugin:rules\": Error: Cannot access client storage without a plugin ID",
+          "timestamp": "2026-03-08T21:01:22.628Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m patching the storage layer so the plugin can still run during local development even when the manifest has no plugin ID.",
+          "timestamp": "2026-03-08T21:01:33.433Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I found the issue: `clientStorage` fails for local manifests without a plugin ID. I’m making storage fail-safe so the plugin still runs in dev mode, even though persistence will be disabled until the plugin has an ID.",
+          "timestamp": "2026-03-08T21:01:40.732Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The crash path is patched. I’m rebuilding now to make sure the updated storage layer is what Figma loads.",
+          "timestamp": "2026-03-08T21:01:53.854Z"
+        },
+        {
+          "type": "assistant",
+          "text": "That error happens because local `clientStorage` needs a real Figma plugin ID. I fixed the plugin so it no longer crashes when no ID is present.\n\nWhat changed:\n\n- rules storage now falls back to in-memory state if `clientStorage` is unavailable\n- provider config storage does the same\n- build and lint both pass\n\nWhat this means for testing now:\n\n- the plugin should open and work locally\n- uploaded rules and provider config will work during the current run\n- they may not persist after closing/restarting the plugin until the manifest has a real plugin `id`\n\nWhat you should do next:\n\n1. Run:\n```bash\nnpm run build\n```\n\n2. Re-run or re-import the plugin in Figma\n\n3. Test again:\n- upload rules\n- set provider\n- run chat\n- run scan\n- edit nodes and watch live findings\n\nIf you want true persistence too, the next step is adding a real plugin `id` to `manifest.json` from a Figma-created plugin shell. I can help you do that, or I can just push this crash fix first.",
+          "timestamp": "2026-03-08T21:02:04.318Z"
+        },
+        {
+          "type": "user",
+          "text": "Error: Syntax error on line 6: Unexpected token {\n    at ee (figma_app__react_profile-d2c9c38e1a1a2e0e.min.js.br:771:45)\n    at async figma_app__react_profile-d2c9c38e1a1a2e0e.min.js.br:901:10385\n(anonymous) @ vendor-core-0f06c244c7c593a2.min.js.br:54",
+          "timestamp": "2026-03-08T21:07:11.178Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking the built UI HTML now, because this kind of syntax error is often caused by Figma loading a multi-file Vite HTML bundle as plugin UI when it expects a self-contained HTML file.",
+          "timestamp": "2026-03-08T21:07:26.341Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I found the problem: the UI build is multi-file, and Figma plugin UIs need the HTML to be self-contained. Right now `dist/index.html` references external JS/CSS files, which Figma is not handling correctly.",
+          "timestamp": "2026-03-08T21:07:39.191Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m updating the Vite config so the UI HTML is inlined into a single file while keeping the plugin main thread bundle separate. Then I’ll rebuild and verify the generated `dist/index.html` no longer points at external assets.",
+          "timestamp": "2026-03-08T21:07:53.252Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The single-file approach is correct, but `vite-plugin-singlefile` can’t run against the current multi-entry build. I’m splitting the build into two Vite modes: one for `code.js`, one for the inlined UI HTML.",
+          "timestamp": "2026-03-08T21:08:30.452Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The build is now split cleanly. I’m rebuilding again and then inspecting `dist/index.html` to confirm it’s truly self-contained for Figma.",
+          "timestamp": "2026-03-08T21:08:48.005Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The rebuild succeeded, and I’m doing one final check that the UI HTML no longer references external asset files.",
+          "timestamp": "2026-03-08T21:09:13.453Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I found the actual cause.\n\nYour UI build was using a normal Vite multi-file output, but Figma plugin UIs need a self-contained HTML file. I changed the build so it now produces:\n\n- `dist/code.js` for the plugin runtime\n- a single-file `dist/index.html` with the UI JS/CSS inlined\n\nI also rebuilt it successfully, so the previous UI parsing issue should be gone now.\n\nWhat to do next:\n\n1. Run:\n```bash\nnpm run build\n```\n\n2. In Figma desktop:\n- remove the previously imported dev plugin if it keeps using the old broken build\n- import `manifest.json` again\n\n3. Run the plugin again\n\nAfter that, test in this order:\n\n1. open plugin\n2. upload a markdown rules file\n3. configure provider\n4. save provider\n5. edit a node in Figma\n6. try `Scan Design`\n7. try `Ask Rules`\n\nIf Figma still throws an error after re-import, send me the new error text exactly. At this point it should be a runtime/plugin logic issue rather than a packaging issue.",
+          "timestamp": "2026-03-08T21:09:18.469Z"
+        },
+        {
+          "type": "user",
+          "text": "Error: Syntax error on line 193: Unexpected token {\n    at ee (figma_app__react_profile-d2c9c38e1a1a2e0e.min.js.br:771:45)\n    at async figma_app__react_profile-d2c9c38e1a1a2e0e.min.js.br:901:10385",
+          "timestamp": "2026-03-08T21:09:55.224Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking the built files for older-JS compatibility issues now. That new error often means one more syntax feature is still too new for Figma’s embedded runtime.",
+          "timestamp": "2026-03-08T21:10:09.667Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m checking whether the inlined UI script still contains module-only constructs. If it doesn’t, I can convert it to a classic `<script>` after build, which is often the missing compatibility step for Figma.",
+          "timestamp": "2026-03-08T21:10:34.292Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I found a more likely compatibility issue in the UI bundle: it still contains modern class `async` methods, and the HTML script is still marked `type=\"module\"`. I’m downgrading the emitted syntax further and converting the final UI script to a classic inline script after build.",
+          "timestamp": "2026-03-08T21:10:52.566Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve applied the compatibility changes. Rebuilding now to verify the output is older JS and the final HTML uses a classic inline `<script>` instead of a module script.",
+          "timestamp": "2026-03-08T21:11:08.787Z"
+        },
+        {
+          "type": "assistant",
+          "text": "That error was coming from the UI bundle still being too modern for Figma’s parser.\n\nI changed two things:\n\n- lowered the emitted JS further to `es2015`\n- converted the final inlined UI script from `type=\"module\"` to a classic `<script>`\n\nThe build now succeeds with those compatibility changes, and the generated `dist/index.html` no longer uses a module script.\n\nWhat to do now:\n\n1. Run:\n```bash\nnpm run build\n```\n\n2. In Figma desktop:\n- remove the currently imported dev plugin\n- import `manifest.json` again\n\n3. Run the plugin again\n\nWhy I’m suggesting re-import:\n- Figma can keep using the old broken bundled HTML/JS until the dev plugin is refreshed\n- this change affects the generated UI bundle, not just runtime logic\n\nIf you still get an error after re-importing, send me the new exact message. At that point it should be a much narrower runtime issue, not packaging syntax anymore.",
+          "timestamp": "2026-03-08T21:13:19.790Z"
+        },
+        {
+          "type": "user",
+          "text": "Uncaught Error: Minified React error #299; visit https://react.dev/errors/299 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.\n    at Tu.createRoot (<anonymous>:9:36069)\n    at <anonymous>:21:10817\n    at onmessage (data:text/html;base64,PHNjcmlwdD4KICAgICAgb25tZXNzYWdlID0gKGV2ZW50KSA9PiB7CiAgICAgICAgaWYgKGV2ZW50LnNvdXJjZSA9PT0gd2luZG93LnBhcmVudC5wYXJlbnQucGFyZW50ICYmIGV2ZW50Lm9yaWdpbiA9PT0gImh0dHBzOi8vd3d3LmZpZ21hLmNvbSIpIHsKICAgICAgICAgIGRvY3VtZW50LndyaXRlKCI8c2NyaXB0PiIgKyAiXG4gZG9jdW1lbnQuY2xvc2UoKTtcbiBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdrZXlkb3duJywgKGUpID0+IHtcbiAgIGlmIChlLmtleUNvZGUgPT09IDgwIC8qIFAgKi8gJiYgIWUuc2hpZnRLZXkgJiYgZS5hbHRLZXkgJiYgZS5jdHJsS2V5ICYmICFlLm1ldGFLZXkpIHtcbiAgICAgLy8gSGFuZGxlIHRoZSBwbHVnaW4gcmUtcnVuIHNob3J0Y3V0XG4gICAgIHdpbmRvdy5wYXJlbnQucG9zdE1lc3NhZ2UoJyRJTlRFUk5BTF9ET19OT1RfVVNFJFJFUlVOX1BMVUdJTiQnLCAnKicpXG4gICAgIGUuc3RvcFByb3BhZ2F0aW9uKClcbiAgICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKVxuICAgfSBlbHNlIGlmICh0cnVlKSB7XG4gICAgIC8vIEhhbmRsZSBTZWxlY3QgQWxsLCBVbmRvIGFuZCBSZWRvIGluIHRoZSBkZXNrdG9wIGFwcFxuICAgICBjb25zdCBjdHJsRG93biA9IGUuY3RybEtleVxuICAgICBpZiAoY3RybERvd24pIHtcbiAgICAgICBpZiAoZS5rZXlDb2RlID09PSA2NSAvKiBBICovKSB7XG4gICAgICAgICBkb2N1bWVudC5leGVjQ29tbWFuZCgnc2VsZWN0QWxsJylcbiAgICAgICB9IGVsc2UgaWYgKGUua2V5Q29kZSA9PT0gOTAgLyogWiAqLykge1xuICAgICAgICAgaWYgKGUuc2hpZnRLZXkpIHtcbiAgICAgICAgICAgZG9jdW1lbnQuZXhlY0NvbW1hbmQoJ3JlZG8nKVxuICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgZG9jdW1lbnQuZXhlY0NvbW1hbmQoJ3VuZG8nKVxuICAgICAgICAgfVxuICAgICAgIH0gZWxzZSBpZiAoKGUua2V5ID09PSAneCcgfHwgZS5rZXkgPT09ICdYJykgJiYgZmFsc2UpIHtcbiAgICAgICAgIGRvY3VtZW50LmV4ZWNDb21tYW5kKCdjdXQnKVxuICAgICAgIH0gZWxzZSBpZiAoKGUua2V5ID09PSAnYycgfHwgZS5rZXkgPT09ICdDJykgJiYgZmFsc2UpIHtcbiAgICAgICAgIGRvY3VtZW50LmV4ZWNDb21tYW5kKCdjb3B5JylcbiAgICAgICB9IGVsc2UgaWYgKChlLmtleSA9PT0gJ3YnIHx8IGUua2V5ID09PSAnVicpICYmIGZhbHNlKSB7XG4gICAgICAgICBkb2N1bWVudC5leGVjQ29tbWFuZCgncGFzdGUnKVxuICAgICAgIH1cbiAgICAgfVxuICAgfVxuIH0sIHRydWUpXG5cbiBmdW5jdGlvbiByZW5kZXJDc3NWYXJpYWJsZXModmFycykge1xuICAgcmV0dXJuIE9iamVjdC5lbnRyaWVzKHZhcnMpXG4gICAgIC5tYXAoKGVudHJ5KSA9PiBlbnRyeS5qb2luKCc6ICcpKVxuICAgICAuam9pbignOyAnKSArICc7J1xuIH1cblxuIHdpbmRvdy5hZGRFdmVudExpc3RlbmVyKCdtZXNzYWdlJywgZnVuY3Rpb24oZXZlbnQpIHtcbiAgIGlmIChcbiAgICAgZXZlbnQuc291cmNlID09PSB3aW5kb3cucGFyZW50LnBhcmVudC5wYXJlbnQgJiZcbiAgICAgZXZlbnQuZGF0YSAmJlxuICAgICB0eXBlb2YgZXZlbnQuZGF0YSA9PT0gJ29iamVjdCcgJiZcbiAgICAgJ2ZpZ21hTWVzc2FnZScgaW4gZXZlbnQuZGF0YVxuICAgKSB7XG4gICAgIGV2ZW50LnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpXG5cbiAgICAgY29uc3QgZmlnbWFNZXNzYWdlID0gZXZlbnQuZGF0YS5maWdtYU1lc3NhZ2VcblxuICAgICBpZiAoZmlnbWFNZXNzYWdlLnR5cGUgPT09ICdUSEVNRScpIHtcbiAgICAgICBjb25zdCBmaWdtYVN0eWxlID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2ZpZ21hLXN0eWxlJylcbiAgICAgICBmaWdtYVN0eWxlLnRleHRDb250ZW50ID0gJzpyb290IHsgJyArIHJlbmRlckNzc1ZhcmlhYmxlcyhmaWdtYU1lc3NhZ2UucGF5bG9hZC52YXJpYWJsZXMpICsgJyB9J1xuXG4gICAgICAgY29uc3QgY2xhc3Nlc1RvUmVtb3ZlID0gW11cblxuICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5jbGFzc0xpc3QuZm9yRWFjaCgodmFsdWUpID0+IHtcbiAgICAgICAgIGlmICh2YWx1ZS5zdGFydHNXaXRoKCdmaWdtYS0nKSkge1xuICAgICAgICAgICBjbGFzc2VzVG9SZW1vdmUucHVzaCh2YWx1ZSlcbiAgICAgICAgIH1cbiAgICAgICB9KVxuXG4gICAgICAgZm9yIChjb25zdCBjbGFzc05hbWUgb2YgY2xhc3Nlc1RvUmVtb3ZlKSB7XG4gICAgICAgICBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuY2xhc3NMaXN0LnJlbW92ZShjbGFzc05hbWUpXG4gICAgICAgfVxuXG4gICAgICAgaWYgKGZpZ21hTWVzc2FnZS5wYXlsb2FkLm5hbWUgJiYgZmlnbWFNZXNzYWdlLnBheWxvYWQubmFtZSAhPT0gJ2xlZ2FjeScpIHtcbiAgICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5jbGFzc0xpc3QuYWRkKCdmaWdtYS0nICsgZmlnbWFNZXNzYWdlLnBheWxvYWQubmFtZSlcbiAgICAgICB9XG4gICAgIH1cbiAgIH1cbiB9LCB0cnVlKVxuICIgKyAiXG4gICAgICAgICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ2xvYWQnLCAoZXZlbnQpID0+IHtcbiAgICAgICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5jbGFzc0xpc3QuYWRkKCdmaWdtYS1kYXJrJylcbiAgICAgICAgICB9KTtcbiAgICAgICAgIiArICJcbiAgICAgICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ3NlY3VyaXR5cG9saWN5dmlvbGF0aW9uJywgKGV2ZW50KSA9PiB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGNvbnN0IHVybCA9IG5ldyBVUkwoZXZlbnQuYmxvY2tlZFVSSSlcbiAgICAgICAgICAgIGNvbnNvbGUud2FybignRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2UgZnJvbScsIGV2ZW50LmJsb2NrZWRVUkksICdzaW5jZSBpdCBpcyBub3QgaW4gdGhlIGxpc3Qgb2YgYWxsb3dlZCBkb21haW5zLiBQbGVhc2UgYWRkJywgJ1wiJyArIHVybC5vcmlnaW4gKyAnXCInLCAndG8gdGhlIG5ldHdvcmtBY2Nlc3MgPiBhbGxvd2VkRG9tYWlucyBmaWVsZCBpbiB5b3VyIG1hbmlmZXN0Lmpzb24uJylcbiAgICAgICAgICB9IGNhdGNoIHtcbiAgICAgICAgICAgIC8vIFRoaXMgaXMgdG8gbWFrZSBzdXJlIHdlIGRvbid0IGNyYXNoIGlmIHRoZSBibG9ja2VkVVJJIGlzIG5vdCBhIHZhbGlkIFVSTC5cbiAgICAgICAgICAgIC8vIFRoaXMgc2hvdWxkIG5ldmVyIGhhcHBlbiBzaW5jZSB3ZSdyZSBnZXR0aW5nIHRoZSB1cmwgZnJvbSB0aGUgV2ViIEFQSSwgYnV0IGJldHRlciBzYWZlIHRoYW4gc29ycnkuXG4gICAgICAgICAgfVxuICAgICAgICB9KSIgKyAiPC8iICsgInNjcmlwdD48c3R5bGUgaWQ9J2ZpZ21hLXN0eWxlJz46cm9vdCB7IC0tZmlnbWEtY29sb3ItYmc6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQ6ICMxOGEwZmI7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQtaG92ZXI6ICMwYTZkYzI7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQtcHJlc3NlZDogIzEwNWNhZDsgLS1maWdtYS1jb2xvci1iZy1icmFuZC1zZWNvbmRhcnk6ICMxMDVjYWQ7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQtdGVydGlhcnk6ICMzOTQzNjA7IC0tZmlnbWEtY29sb3ItYmctY29tcG9uZW50OiAjOGEzOGY1OyAtLWZpZ21hLWNvbG9yLWJnLWNvbXBvbmVudC1ob3ZlcjogIzdhMmVkNjsgLS1maWdtYS1jb2xvci1iZy1jb21wb25lbnQtcHJlc3NlZDogIzY1MmNhODsgLS1maWdtYS1jb2xvci1iZy1jb21wb25lbnQtc2Vjb25kYXJ5OiAjNjUyY2E4OyAtLWZpZ21hLWNvbG9yLWJnLWNvbXBvbmVudC10ZXJ0aWFyeTogIzQ3Mzk1NjsgLS1maWdtYS1jb2xvci1iZy1kYW5nZXI6ICNlMDNlMWE7IC0tZmlnbWEtY29sb3ItYmctZGFuZ2VyLWhvdmVyOiAjYzQzODFjOyAtLWZpZ21hLWNvbG9yLWJnLWRhbmdlci1wcmVzc2VkOiAjOTYzMzIzOyAtLWZpZ21hLWNvbG9yLWJnLWRhbmdlci1zZWNvbmRhcnk6ICM5NjMzMjM7IC0tZmlnbWEtY29sb3ItYmctZGFuZ2VyLXRlcnRpYXJ5OiAjNjAzMzJhOyAtLWZpZ21hLWNvbG9yLWJnLWRpc2FibGVkOiAjNzU3NTc1OyAtLWZpZ21hLWNvbG9yLWJnLWRpc2FibGVkLXNlY29uZGFyeTogI2IzYjNiMzsgLS1maWdtYS1jb2xvci1iZy1ob3ZlcjogI2RhZWJmNzsgLS1maWdtYS1jb2xvci1iZy1pbnZlcnNlOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJnLW9uc2VsZWN0ZWQ6ICM2Njc3OTk7IC0tZmlnbWEtY29sb3ItYmctb25zZWxlY3RlZC1ob3ZlcjogIzY2Nzc5OTsgLS1maWdtYS1jb2xvci1iZy1vbnNlbGVjdGVkLXByZXNzZWQ6ICM2Njc3OTk7IC0tZmlnbWEtY29sb3ItYmctcHJlc3NlZDogI2RhZWJmNzsgLS1maWdtYS1jb2xvci1iZy1zZWNvbmRhcnk6ICNkYWViZjc7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQ6ICNkYWViZjc7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQtaG92ZXI6ICM1MzYzODM7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQtcHJlc3NlZDogIzRhNTg3ODsgLS1maWdtYS1jb2xvci1iZy1zZWxlY3RlZC1zZWNvbmRhcnk6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQtc3Ryb25nOiAjMGM4Y2U5OyAtLWZpZ21hLWNvbG9yLWJnLXNlbGVjdGVkLXRlcnRpYXJ5OiAjMzk0MzYwOyAtLWZpZ21hLWNvbG9yLWJnLXN1Y2Nlc3M6ICMxOThmNTE7IC0tZmlnbWEtY29sb3ItYmctc3VjY2Vzcy1ob3ZlcjogIzA3ODM0ODsgLS1maWdtYS1jb2xvci1iZy1zdWNjZXNzLXByZXNzZWQ6ICMwYTVjMzU7IC0tZmlnbWEtY29sb3ItYmctc3VjY2Vzcy1zZWNvbmRhcnk6ICMwYTVjMzU7IC0tZmlnbWEtY29sb3ItYmctc3VjY2Vzcy10ZXJ0aWFyeTogIzJmNDgzYzsgLS1maWdtYS1jb2xvci1iZy10ZXJ0aWFyeTogI2RhZWJmNzsgLS1maWdtYS1jb2xvci1iZy13YXJuaW5nOiAjZjNjMTFiOyAtLWZpZ21hLWNvbG9yLWJnLXdhcm5pbmctaG92ZXI6ICNmMmI1MGQ7IC0tZmlnbWEtY29sb3ItYmctd2FybmluZy1wcmVzc2VkOiAjZTRhNzExOyAtLWZpZ21hLWNvbG9yLWJnLXdhcm5pbmctc2Vjb25kYXJ5OiAjZTRhNzExOyAtLWZpZ21hLWNvbG9yLWJnLXdhcm5pbmctdGVydGlhcnk6ICM1YzQxMDA7IC0tZmlnbWEtY29sb3ItYm9yZGVyOiAjZTJlMmUyOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1icmFuZDogIzUzNjM4MzsgLS1maWdtYS1jb2xvci1ib3JkZXItYnJhbmQtc3Ryb25nOiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1jb21wb25lbnQ6ICM2MDRkNzU7IC0tZmlnbWEtY29sb3ItYm9yZGVyLWNvbXBvbmVudC1ob3ZlcjogIzhhMzhmNTsgLS1maWdtYS1jb2xvci1ib3JkZXItY29tcG9uZW50LXN0cm9uZzogI2Q2YjZmYjsgLS1maWdtYS1jb2xvci1ib3JkZXItZGFuZ2VyOiAjODY0NTM3OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1kYW5nZXItc3Ryb25nOiAjZmNhMzk3OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1kaXNhYmxlZDogIzQ0NDQ0NDsgLS1maWdtYS1jb2xvci1ib3JkZXItZGlzYWJsZWQtc3Ryb25nOiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9uYnJhbmQ6ICMwYTZkYzI7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9uYnJhbmQtc3Ryb25nOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbmNvbXBvbmVudDogIzdhMmVkNjsgLS1maWdtYS1jb2xvci1ib3JkZXItb25jb21wb25lbnQtc3Ryb25nOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbmRhbmdlcjogI2M0MzgxYzsgLS1maWdtYS1jb2xvci1ib3JkZXItb25kYW5nZXItc3Ryb25nOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbnNlbGVjdGVkOiAjNjY3Nzk5OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbnNlbGVjdGVkLXN0cm9uZzogI2ZmZmZmZmU2OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbnN1Y2Nlc3M6ICMwNzgzNDg7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9uc3VjY2Vzcy1zdHJvbmc6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9ud2FybmluZzogI2U0YTcxMTsgLS1maWdtYS1jb2xvci1ib3JkZXItb253YXJuaW5nLXN0cm9uZzogIzAwMDAwMGU2OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1zZWxlY3RlZDogIzE4YTBmYjsgLS1maWdtYS1jb2xvci1ib3JkZXItc2VsZWN0ZWQtc3Ryb25nOiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1zdHJvbmc6ICNmZmZmZmZlNjsgLS1maWdtYS1jb2xvci1ib3JkZXItc3VjY2VzczogIzUxNzM2MTsgLS1maWdtYS1jb2xvci1ib3JkZXItc3VjY2Vzcy1zdHJvbmc6ICM3Y2Q3OTc7IC0tZmlnbWEtY29sb3ItYm9yZGVyLXdhcm5pbmc6ICM3YTU4MDA7IC0tZmlnbWEtY29sb3ItYm9yZGVyLXdhcm5pbmctc3Ryb25nOiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLWljb246ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItaWNvbi1icmFuZDogIzMzMzMzMzsgLS1maWdtYS1jb2xvci1pY29uLWJyYW5kLXByZXNzZWQ6ICMwYzhjZTk7IC0tZmlnbWEtY29sb3ItaWNvbi1icmFuZC1zZWNvbmRhcnk6ICM2Njc3OTk7IC0tZmlnbWEtY29sb3ItaWNvbi1icmFuZC10ZXJ0aWFyeTogIzRhNTg3ODsgLS1maWdtYS1jb2xvci1pY29uLWNvbXBvbmVudDogIzdiNjFmZjsgLS1maWdtYS1jb2xvci1pY29uLWNvbXBvbmVudC1wcmVzc2VkOiAjZDZiNmZiOyAtLWZpZ21hLWNvbG9yLWljb24tY29tcG9uZW50LXNlY29uZGFyeTogIzRlNDI4YTsgLS1maWdtYS1jb2xvci1pY29uLWNvbXBvbmVudC10ZXJ0aWFyeTogIzRlNDI4YTsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlcjogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlci1ob3ZlcjogI2ZiYmNiNjsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlci1wcmVzc2VkOiAjZmJiY2I2OyAtLWZpZ21hLWNvbG9yLWljb24tZGFuZ2VyLXNlY29uZGFyeTogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlci1zZWNvbmRhcnktaG92ZXI6ICNmY2EzOTc7IC0tZmlnbWEtY29sb3ItaWNvbi1kYW5nZXItdGVydGlhcnk6ICNmY2EzOTc7IC0tZmlnbWEtY29sb3ItaWNvbi1kaXNhYmxlZDogI2IzYjNiMzsgLS1maWdtYS1jb2xvci1pY29uLWhvdmVyOiAjMDUwNTA1OyAtLWZpZ21hLWNvbG9yLWljb24tb25icmFuZDogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uYnJhbmQtc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItaWNvbi1vbmJyYW5kLXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItaWNvbi1vbmNvbXBvbmVudDogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uY29tcG9uZW50LXNlY29uZGFyeTogI2ZmZmZmZmNjOyAtLWZpZ21hLWNvbG9yLWljb24tb25jb21wb25lbnQtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci1pY29uLW9uZGFuZ2VyOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWljb24tb25kYW5nZXItc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItaWNvbi1vbmRhbmdlci10ZXJ0aWFyeTogI2ZmZmZmZjY2OyAtLWZpZ21hLWNvbG9yLWljb24tb25kaXNhYmxlZDogIzJjMmMyYzsgLS1maWdtYS1jb2xvci1pY29uLW9uaW52ZXJzZTogIzAwMDAwMGU2OyAtLWZpZ21hLWNvbG9yLWljb24tb25zZWxlY3RlZDogIzA1MDUwNTsgLS1maWdtYS1jb2xvci1pY29uLW9uc2VsZWN0ZWQtc2Vjb25kYXJ5OiAjZmZmZmZmYjM7IC0tZmlnbWEtY29sb3ItaWNvbi1vbnNlbGVjdGVkLXN0cm9uZzogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uc2VsZWN0ZWQtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci1pY29uLW9uc3VjY2VzczogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uc3VjY2Vzcy1zZWNvbmRhcnk6ICNmZmZmZmZjYzsgLS1maWdtYS1jb2xvci1pY29uLW9uc3VjY2Vzcy10ZXJ0aWFyeTogI2ZmZmZmZjY2OyAtLWZpZ21hLWNvbG9yLWljb24tb253YXJuaW5nOiAjMDAwMDAwZTY7IC0tZmlnbWEtY29sb3ItaWNvbi1vbndhcm5pbmctc2Vjb25kYXJ5OiAjMDAwMDAwODA7IC0tZmlnbWEtY29sb3ItaWNvbi1vbndhcm5pbmctdGVydGlhcnk6ICMwMDAwMDA0ZDsgLS1maWdtYS1jb2xvci1pY29uLXByZXNzZWQ6ICMwYTZkYzI7IC0tZmlnbWEtY29sb3ItaWNvbi1zZWNvbmRhcnk6ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItaWNvbi1zZWNvbmRhcnktaG92ZXI6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItaWNvbi1zZWxlY3RlZDogIzdjYzRmODsgLS1maWdtYS1jb2xvci1pY29uLXNlbGVjdGVkLXNlY29uZGFyeTogIzdjYzRmODsgLS1maWdtYS1jb2xvci1pY29uLXNlbGVjdGVkLXRlcnRpYXJ5OiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLWljb24tc3VjY2VzczogIzdjZDc5NzsgLS1maWdtYS1jb2xvci1pY29uLXN1Y2Nlc3MtcHJlc3NlZDogI2E1ZTViNzsgLS1maWdtYS1jb2xvci1pY29uLXN1Y2Nlc3Mtc2Vjb25kYXJ5OiAjN2NkNzk3OyAtLWZpZ21hLWNvbG9yLWljb24tc3VjY2Vzcy10ZXJ0aWFyeTogIzdjZDc5NzsgLS1maWdtYS1jb2xvci1pY29uLXRlcnRpYXJ5OiAjMzMzMzMzOyAtLWZpZ21hLWNvbG9yLWljb24tdGVydGlhcnktaG92ZXI6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItaWNvbi13YXJuaW5nOiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLWljb24td2FybmluZy1wcmVzc2VkOiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLWljb24td2FybmluZy1zZWNvbmRhcnk6ICNmN2QxNWY7IC0tZmlnbWEtY29sb3ItaWNvbi13YXJuaW5nLXRlcnRpYXJ5OiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLXRleHQ6ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItdGV4dC1icmFuZDogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LWJyYW5kLXNlY29uZGFyeTogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LWJyYW5kLXRlcnRpYXJ5OiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLXRleHQtY29tcG9uZW50OiAjN2I2MWZmOyAtLWZpZ21hLWNvbG9yLXRleHQtY29tcG9uZW50LXByZXNzZWQ6ICNkNmI2ZmI7IC0tZmlnbWEtY29sb3ItdGV4dC1jb21wb25lbnQtc2Vjb25kYXJ5OiAjNGU0MjhhOyAtLWZpZ21hLWNvbG9yLXRleHQtY29tcG9uZW50LXRlcnRpYXJ5OiAjNGU0MjhhOyAtLWZpZ21hLWNvbG9yLXRleHQtZGFuZ2VyOiAjZmNhMzk3OyAtLWZpZ21hLWNvbG9yLXRleHQtZGFuZ2VyLXNlY29uZGFyeTogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci10ZXh0LWRhbmdlci10ZXJ0aWFyeTogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci10ZXh0LWRpc2FibGVkOiAjYjNiM2IzOyAtLWZpZ21hLWNvbG9yLXRleHQtaG92ZXI6ICMwNTA1MDU7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmJyYW5kOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLXRleHQtb25icmFuZC1zZWNvbmRhcnk6ICNmZmZmZmZjYzsgLS1maWdtYS1jb2xvci10ZXh0LW9uYnJhbmQtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci10ZXh0LW9uY29tcG9uZW50OiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLXRleHQtb25jb21wb25lbnQtc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmNvbXBvbmVudC10ZXJ0aWFyeTogI2ZmZmZmZjY2OyAtLWZpZ21hLWNvbG9yLXRleHQtb25kYW5nZXI6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmRhbmdlci1zZWNvbmRhcnk6ICNmZmZmZmZjYzsgLS1maWdtYS1jb2xvci10ZXh0LW9uZGFuZ2VyLXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmRpc2FibGVkOiAjMmMyYzJjOyAtLWZpZ21hLWNvbG9yLXRleHQtb25pbnZlcnNlOiAjMDAwMDAwZTY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnNlbGVjdGVkOiAjZmZmZmZmZTY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnNlbGVjdGVkLXNlY29uZGFyeTogI2ZmZmZmZmIzOyAtLWZpZ21hLWNvbG9yLXRleHQtb25zZWxlY3RlZC1zdHJvbmc6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnNlbGVjdGVkLXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnN1Y2Nlc3M6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnN1Y2Nlc3Mtc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnN1Y2Nlc3MtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci10ZXh0LW9ud2FybmluZzogIzAwMDAwMGU2OyAtLWZpZ21hLWNvbG9yLXRleHQtb253YXJuaW5nLXNlY29uZGFyeTogIzAwMDAwMDgwOyAtLWZpZ21hLWNvbG9yLXRleHQtb253YXJuaW5nLXRlcnRpYXJ5OiAjMDAwMDAwNGQ7IC0tZmlnbWEtY29sb3ItdGV4dC1zZWNvbmRhcnk6ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItdGV4dC1zZWNvbmRhcnktaG92ZXI6ICMwNTA1MDU7IC0tZmlnbWEtY29sb3ItdGV4dC1zZWxlY3RlZDogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LXNlbGVjdGVkLXNlY29uZGFyeTogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LXNlbGVjdGVkLXRlcnRpYXJ5OiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLXRleHQtc3VjY2VzczogIzdjZDc5NzsgLS1maWdtYS1jb2xvci10ZXh0LXN1Y2Nlc3Mtc2Vjb25kYXJ5OiAjN2NkNzk3OyAtLWZpZ21hLWNvbG9yLXRleHQtc3VjY2Vzcy10ZXJ0aWFyeTogIzdjZDc5NzsgLS1maWdtYS1jb2xvci10ZXh0LXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItdGV4dC10ZXJ0aWFyeS1ob3ZlcjogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci10ZXh0LXdhcm5pbmc6ICNmN2QxNWY7IC0tZmlnbWEtY29sb3ItdGV4dC13YXJuaW5nLXNlY29uZGFyeTogI2Y3ZDE1ZjsgLS1maWdtYS1jb2xvci10ZXh0LXdhcm5pbmctdGVydGlhcnk6ICNmN2QxNWY7IC0tZmlnbWEtY29sb3ItYmctc2xvdDogcmdiYSgyNDMsIDIyLCAxNzYsIC4yNSk7IC0tZmlnbWEtY29sb3ItYm9yZGVyLXNsb3Q6ICNmMzE2YjA7IH08L3N0eWxlPiIgKyBldmVudC5kYXRhKQogICAgICAgIH0KICAgICAgfQoKICA8L3NjcmlwdD4=:4:20)",
+          "timestamp": "2026-03-08T21:13:55.969Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I found a likely cause: the inlined UI script is executing before the `#root` element is available in Figma’s iframe wrapper, so React is failing at `createRoot(...)`. I’m making the UI mount wait for the DOM before rendering.",
+          "timestamp": "2026-03-08T21:14:09.329Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I confirmed the mount is immediate. I’m changing it so React only boots after the DOM is ready, which is much safer inside Figma’s UI wrapper.",
+          "timestamp": "2026-03-08T21:14:16.301Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The mount logic is patched. I’m rebuilding and linting so you can retry with a fresh bundle instead of chasing another stale Figma import.",
+          "timestamp": "2026-03-08T21:14:23.586Z"
+        },
+        {
+          "type": "assistant",
+          "text": "That React error was likely from trying to mount before `#root` existed inside Figma’s injected UI wrapper.\n\nI fixed the UI bootstrap so it waits for `DOMContentLoaded` before calling `createRoot(...)`, then rebuilt successfully.\n\nWhat to do next:\n\n1. Run:\n```bash\nnpm run build\n```\n\n2. In Figma desktop:\n- remove the old imported dev plugin\n- import `manifest.json` again\n\n3. Run the plugin again\n\nIf it still errors after a fresh re-import, send me the new exact message. This one should be resolved by the delayed mount.",
+          "timestamp": "2026-03-08T21:14:39.648Z"
+        },
+        {
+          "type": "user",
+          "text": "Uncaught Error: Minified React error #299; visit https://react.dev/errors/299 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.\n    at Tu.createRoot (<anonymous>:9:36069)\n    at <anonymous>:21:10817\n    at onmessage (data:text/html;base64,PHNjcmlwdD4KICAgICAgb25tZXNzYWdlID0gKGV2ZW50KSA9PiB7CiAgICAgICAgaWYgKGV2ZW50LnNvdXJjZSA9PT0gd2luZG93LnBhcmVudC5wYXJlbnQucGFyZW50ICYmIGV2ZW50Lm9yaWdpbiA9PT0gImh0dHBzOi8vd3d3LmZpZ21hLmNvbSIpIHsKICAgICAgICAgIGRvY3VtZW50LndyaXRlKCI8c2NyaXB0PiIgKyAiXG4gZG9jdW1lbnQuY2xvc2UoKTtcbiBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdrZXlkb3duJywgKGUpID0+IHtcbiAgIGlmIChlLmtleUNvZGUgPT09IDgwIC8qIFAgKi8gJiYgIWUuc2hpZnRLZXkgJiYgZS5hbHRLZXkgJiYgZS5jdHJsS2V5ICYmICFlLm1ldGFLZXkpIHtcbiAgICAgLy8gSGFuZGxlIHRoZSBwbHVnaW4gcmUtcnVuIHNob3J0Y3V0XG4gICAgIHdpbmRvdy5wYXJlbnQucG9zdE1lc3NhZ2UoJyRJTlRFUk5BTF9ET19OT1RfVVNFJFJFUlVOX1BMVUdJTiQnLCAnKicpXG4gICAgIGUuc3RvcFByb3BhZ2F0aW9uKClcbiAgICAgZS5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKVxuICAgfSBlbHNlIGlmICh0cnVlKSB7XG4gICAgIC8vIEhhbmRsZSBTZWxlY3QgQWxsLCBVbmRvIGFuZCBSZWRvIGluIHRoZSBkZXNrdG9wIGFwcFxuICAgICBjb25zdCBjdHJsRG93biA9IGUuY3RybEtleVxuICAgICBpZiAoY3RybERvd24pIHtcbiAgICAgICBpZiAoZS5rZXlDb2RlID09PSA2NSAvKiBBICovKSB7XG4gICAgICAgICBkb2N1bWVudC5leGVjQ29tbWFuZCgnc2VsZWN0QWxsJylcbiAgICAgICB9IGVsc2UgaWYgKGUua2V5Q29kZSA9PT0gOTAgLyogWiAqLykge1xuICAgICAgICAgaWYgKGUuc2hpZnRLZXkpIHtcbiAgICAgICAgICAgZG9jdW1lbnQuZXhlY0NvbW1hbmQoJ3JlZG8nKVxuICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgZG9jdW1lbnQuZXhlY0NvbW1hbmQoJ3VuZG8nKVxuICAgICAgICAgfVxuICAgICAgIH0gZWxzZSBpZiAoKGUua2V5ID09PSAneCcgfHwgZS5rZXkgPT09ICdYJykgJiYgZmFsc2UpIHtcbiAgICAgICAgIGRvY3VtZW50LmV4ZWNDb21tYW5kKCdjdXQnKVxuICAgICAgIH0gZWxzZSBpZiAoKGUua2V5ID09PSAnYycgfHwgZS5rZXkgPT09ICdDJykgJiYgZmFsc2UpIHtcbiAgICAgICAgIGRvY3VtZW50LmV4ZWNDb21tYW5kKCdjb3B5JylcbiAgICAgICB9IGVsc2UgaWYgKChlLmtleSA9PT0gJ3YnIHx8IGUua2V5ID09PSAnVicpICYmIGZhbHNlKSB7XG4gICAgICAgICBkb2N1bWVudC5leGVjQ29tbWFuZCgncGFzdGUnKVxuICAgICAgIH1cbiAgICAgfVxuICAgfVxuIH0sIHRydWUpXG5cbiBmdW5jdGlvbiByZW5kZXJDc3NWYXJpYWJsZXModmFycykge1xuICAgcmV0dXJuIE9iamVjdC5lbnRyaWVzKHZhcnMpXG4gICAgIC5tYXAoKGVudHJ5KSA9PiBlbnRyeS5qb2luKCc6ICcpKVxuICAgICAuam9pbignOyAnKSArICc7J1xuIH1cblxuIHdpbmRvdy5hZGRFdmVudExpc3RlbmVyKCdtZXNzYWdlJywgZnVuY3Rpb24oZXZlbnQpIHtcbiAgIGlmIChcbiAgICAgZXZlbnQuc291cmNlID09PSB3aW5kb3cucGFyZW50LnBhcmVudC5wYXJlbnQgJiZcbiAgICAgZXZlbnQuZGF0YSAmJlxuICAgICB0eXBlb2YgZXZlbnQuZGF0YSA9PT0gJ29iamVjdCcgJiZcbiAgICAgJ2ZpZ21hTWVzc2FnZScgaW4gZXZlbnQuZGF0YVxuICAgKSB7XG4gICAgIGV2ZW50LnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpXG5cbiAgICAgY29uc3QgZmlnbWFNZXNzYWdlID0gZXZlbnQuZGF0YS5maWdtYU1lc3NhZ2VcblxuICAgICBpZiAoZmlnbWFNZXNzYWdlLnR5cGUgPT09ICdUSEVNRScpIHtcbiAgICAgICBjb25zdCBmaWdtYVN0eWxlID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2ZpZ21hLXN0eWxlJylcbiAgICAgICBmaWdtYVN0eWxlLnRleHRDb250ZW50ID0gJzpyb290IHsgJyArIHJlbmRlckNzc1ZhcmlhYmxlcyhmaWdtYU1lc3NhZ2UucGF5bG9hZC52YXJpYWJsZXMpICsgJyB9J1xuXG4gICAgICAgY29uc3QgY2xhc3Nlc1RvUmVtb3ZlID0gW11cblxuICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5jbGFzc0xpc3QuZm9yRWFjaCgodmFsdWUpID0+IHtcbiAgICAgICAgIGlmICh2YWx1ZS5zdGFydHNXaXRoKCdmaWdtYS0nKSkge1xuICAgICAgICAgICBjbGFzc2VzVG9SZW1vdmUucHVzaCh2YWx1ZSlcbiAgICAgICAgIH1cbiAgICAgICB9KVxuXG4gICAgICAgZm9yIChjb25zdCBjbGFzc05hbWUgb2YgY2xhc3Nlc1RvUmVtb3ZlKSB7XG4gICAgICAgICBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuY2xhc3NMaXN0LnJlbW92ZShjbGFzc05hbWUpXG4gICAgICAgfVxuXG4gICAgICAgaWYgKGZpZ21hTWVzc2FnZS5wYXlsb2FkLm5hbWUgJiYgZmlnbWFNZXNzYWdlLnBheWxvYWQubmFtZSAhPT0gJ2xlZ2FjeScpIHtcbiAgICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5jbGFzc0xpc3QuYWRkKCdmaWdtYS0nICsgZmlnbWFNZXNzYWdlLnBheWxvYWQubmFtZSlcbiAgICAgICB9XG4gICAgIH1cbiAgIH1cbiB9LCB0cnVlKVxuICIgKyAiXG4gICAgICAgICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ2xvYWQnLCAoZXZlbnQpID0+IHtcbiAgICAgICAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5jbGFzc0xpc3QuYWRkKCdmaWdtYS1kYXJrJylcbiAgICAgICAgICB9KTtcbiAgICAgICAgIiArICJcbiAgICAgICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ3NlY3VyaXR5cG9saWN5dmlvbGF0aW9uJywgKGV2ZW50KSA9PiB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGNvbnN0IHVybCA9IG5ldyBVUkwoZXZlbnQuYmxvY2tlZFVSSSlcbiAgICAgICAgICAgIGNvbnNvbGUud2FybignRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2UgZnJvbScsIGV2ZW50LmJsb2NrZWRVUkksICdzaW5jZSBpdCBpcyBub3QgaW4gdGhlIGxpc3Qgb2YgYWxsb3dlZCBkb21haW5zLiBQbGVhc2UgYWRkJywgJ1wiJyArIHVybC5vcmlnaW4gKyAnXCInLCAndG8gdGhlIG5ldHdvcmtBY2Nlc3MgPiBhbGxvd2VkRG9tYWlucyBmaWVsZCBpbiB5b3VyIG1hbmlmZXN0Lmpzb24uJylcbiAgICAgICAgICB9IGNhdGNoIHtcbiAgICAgICAgICAgIC8vIFRoaXMgaXMgdG8gbWFrZSBzdXJlIHdlIGRvbid0IGNyYXNoIGlmIHRoZSBibG9ja2VkVVJJIGlzIG5vdCBhIHZhbGlkIFVSTC5cbiAgICAgICAgICAgIC8vIFRoaXMgc2hvdWxkIG5ldmVyIGhhcHBlbiBzaW5jZSB3ZSdyZSBnZXR0aW5nIHRoZSB1cmwgZnJvbSB0aGUgV2ViIEFQSSwgYnV0IGJldHRlciBzYWZlIHRoYW4gc29ycnkuXG4gICAgICAgICAgfVxuICAgICAgICB9KSIgKyAiPC8iICsgInNjcmlwdD48c3R5bGUgaWQ9J2ZpZ21hLXN0eWxlJz46cm9vdCB7IC0tZmlnbWEtY29sb3ItYmc6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQ6ICMxOGEwZmI7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQtaG92ZXI6ICMwYTZkYzI7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQtcHJlc3NlZDogIzEwNWNhZDsgLS1maWdtYS1jb2xvci1iZy1icmFuZC1zZWNvbmRhcnk6ICMxMDVjYWQ7IC0tZmlnbWEtY29sb3ItYmctYnJhbmQtdGVydGlhcnk6ICMzOTQzNjA7IC0tZmlnbWEtY29sb3ItYmctY29tcG9uZW50OiAjOGEzOGY1OyAtLWZpZ21hLWNvbG9yLWJnLWNvbXBvbmVudC1ob3ZlcjogIzdhMmVkNjsgLS1maWdtYS1jb2xvci1iZy1jb21wb25lbnQtcHJlc3NlZDogIzY1MmNhODsgLS1maWdtYS1jb2xvci1iZy1jb21wb25lbnQtc2Vjb25kYXJ5OiAjNjUyY2E4OyAtLWZpZ21hLWNvbG9yLWJnLWNvbXBvbmVudC10ZXJ0aWFyeTogIzQ3Mzk1NjsgLS1maWdtYS1jb2xvci1iZy1kYW5nZXI6ICNlMDNlMWE7IC0tZmlnbWEtY29sb3ItYmctZGFuZ2VyLWhvdmVyOiAjYzQzODFjOyAtLWZpZ21hLWNvbG9yLWJnLWRhbmdlci1wcmVzc2VkOiAjOTYzMzIzOyAtLWZpZ21hLWNvbG9yLWJnLWRhbmdlci1zZWNvbmRhcnk6ICM5NjMzMjM7IC0tZmlnbWEtY29sb3ItYmctZGFuZ2VyLXRlcnRpYXJ5OiAjNjAzMzJhOyAtLWZpZ21hLWNvbG9yLWJnLWRpc2FibGVkOiAjNzU3NTc1OyAtLWZpZ21hLWNvbG9yLWJnLWRpc2FibGVkLXNlY29uZGFyeTogI2IzYjNiMzsgLS1maWdtYS1jb2xvci1iZy1ob3ZlcjogI2RhZWJmNzsgLS1maWdtYS1jb2xvci1iZy1pbnZlcnNlOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJnLW9uc2VsZWN0ZWQ6ICM2Njc3OTk7IC0tZmlnbWEtY29sb3ItYmctb25zZWxlY3RlZC1ob3ZlcjogIzY2Nzc5OTsgLS1maWdtYS1jb2xvci1iZy1vbnNlbGVjdGVkLXByZXNzZWQ6ICM2Njc3OTk7IC0tZmlnbWEtY29sb3ItYmctcHJlc3NlZDogI2RhZWJmNzsgLS1maWdtYS1jb2xvci1iZy1zZWNvbmRhcnk6ICNkYWViZjc7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQ6ICNkYWViZjc7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQtaG92ZXI6ICM1MzYzODM7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQtcHJlc3NlZDogIzRhNTg3ODsgLS1maWdtYS1jb2xvci1iZy1zZWxlY3RlZC1zZWNvbmRhcnk6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItYmctc2VsZWN0ZWQtc3Ryb25nOiAjMGM4Y2U5OyAtLWZpZ21hLWNvbG9yLWJnLXNlbGVjdGVkLXRlcnRpYXJ5OiAjMzk0MzYwOyAtLWZpZ21hLWNvbG9yLWJnLXN1Y2Nlc3M6ICMxOThmNTE7IC0tZmlnbWEtY29sb3ItYmctc3VjY2Vzcy1ob3ZlcjogIzA3ODM0ODsgLS1maWdtYS1jb2xvci1iZy1zdWNjZXNzLXByZXNzZWQ6ICMwYTVjMzU7IC0tZmlnbWEtY29sb3ItYmctc3VjY2Vzcy1zZWNvbmRhcnk6ICMwYTVjMzU7IC0tZmlnbWEtY29sb3ItYmctc3VjY2Vzcy10ZXJ0aWFyeTogIzJmNDgzYzsgLS1maWdtYS1jb2xvci1iZy10ZXJ0aWFyeTogI2RhZWJmNzsgLS1maWdtYS1jb2xvci1iZy13YXJuaW5nOiAjZjNjMTFiOyAtLWZpZ21hLWNvbG9yLWJnLXdhcm5pbmctaG92ZXI6ICNmMmI1MGQ7IC0tZmlnbWEtY29sb3ItYmctd2FybmluZy1wcmVzc2VkOiAjZTRhNzExOyAtLWZpZ21hLWNvbG9yLWJnLXdhcm5pbmctc2Vjb25kYXJ5OiAjZTRhNzExOyAtLWZpZ21hLWNvbG9yLWJnLXdhcm5pbmctdGVydGlhcnk6ICM1YzQxMDA7IC0tZmlnbWEtY29sb3ItYm9yZGVyOiAjZTJlMmUyOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1icmFuZDogIzUzNjM4MzsgLS1maWdtYS1jb2xvci1ib3JkZXItYnJhbmQtc3Ryb25nOiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1jb21wb25lbnQ6ICM2MDRkNzU7IC0tZmlnbWEtY29sb3ItYm9yZGVyLWNvbXBvbmVudC1ob3ZlcjogIzhhMzhmNTsgLS1maWdtYS1jb2xvci1ib3JkZXItY29tcG9uZW50LXN0cm9uZzogI2Q2YjZmYjsgLS1maWdtYS1jb2xvci1ib3JkZXItZGFuZ2VyOiAjODY0NTM3OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1kYW5nZXItc3Ryb25nOiAjZmNhMzk3OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1kaXNhYmxlZDogIzQ0NDQ0NDsgLS1maWdtYS1jb2xvci1ib3JkZXItZGlzYWJsZWQtc3Ryb25nOiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9uYnJhbmQ6ICMwYTZkYzI7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9uYnJhbmQtc3Ryb25nOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbmNvbXBvbmVudDogIzdhMmVkNjsgLS1maWdtYS1jb2xvci1ib3JkZXItb25jb21wb25lbnQtc3Ryb25nOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbmRhbmdlcjogI2M0MzgxYzsgLS1maWdtYS1jb2xvci1ib3JkZXItb25kYW5nZXItc3Ryb25nOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbnNlbGVjdGVkOiAjNjY3Nzk5OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbnNlbGVjdGVkLXN0cm9uZzogI2ZmZmZmZmU2OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1vbnN1Y2Nlc3M6ICMwNzgzNDg7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9uc3VjY2Vzcy1zdHJvbmc6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItYm9yZGVyLW9ud2FybmluZzogI2U0YTcxMTsgLS1maWdtYS1jb2xvci1ib3JkZXItb253YXJuaW5nLXN0cm9uZzogIzAwMDAwMGU2OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1zZWxlY3RlZDogIzE4YTBmYjsgLS1maWdtYS1jb2xvci1ib3JkZXItc2VsZWN0ZWQtc3Ryb25nOiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLWJvcmRlci1zdHJvbmc6ICNmZmZmZmZlNjsgLS1maWdtYS1jb2xvci1ib3JkZXItc3VjY2VzczogIzUxNzM2MTsgLS1maWdtYS1jb2xvci1ib3JkZXItc3VjY2Vzcy1zdHJvbmc6ICM3Y2Q3OTc7IC0tZmlnbWEtY29sb3ItYm9yZGVyLXdhcm5pbmc6ICM3YTU4MDA7IC0tZmlnbWEtY29sb3ItYm9yZGVyLXdhcm5pbmctc3Ryb25nOiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLWljb246ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItaWNvbi1icmFuZDogIzMzMzMzMzsgLS1maWdtYS1jb2xvci1pY29uLWJyYW5kLXByZXNzZWQ6ICMwYzhjZTk7IC0tZmlnbWEtY29sb3ItaWNvbi1icmFuZC1zZWNvbmRhcnk6ICM2Njc3OTk7IC0tZmlnbWEtY29sb3ItaWNvbi1icmFuZC10ZXJ0aWFyeTogIzRhNTg3ODsgLS1maWdtYS1jb2xvci1pY29uLWNvbXBvbmVudDogIzdiNjFmZjsgLS1maWdtYS1jb2xvci1pY29uLWNvbXBvbmVudC1wcmVzc2VkOiAjZDZiNmZiOyAtLWZpZ21hLWNvbG9yLWljb24tY29tcG9uZW50LXNlY29uZGFyeTogIzRlNDI4YTsgLS1maWdtYS1jb2xvci1pY29uLWNvbXBvbmVudC10ZXJ0aWFyeTogIzRlNDI4YTsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlcjogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlci1ob3ZlcjogI2ZiYmNiNjsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlci1wcmVzc2VkOiAjZmJiY2I2OyAtLWZpZ21hLWNvbG9yLWljb24tZGFuZ2VyLXNlY29uZGFyeTogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci1pY29uLWRhbmdlci1zZWNvbmRhcnktaG92ZXI6ICNmY2EzOTc7IC0tZmlnbWEtY29sb3ItaWNvbi1kYW5nZXItdGVydGlhcnk6ICNmY2EzOTc7IC0tZmlnbWEtY29sb3ItaWNvbi1kaXNhYmxlZDogI2IzYjNiMzsgLS1maWdtYS1jb2xvci1pY29uLWhvdmVyOiAjMDUwNTA1OyAtLWZpZ21hLWNvbG9yLWljb24tb25icmFuZDogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uYnJhbmQtc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItaWNvbi1vbmJyYW5kLXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItaWNvbi1vbmNvbXBvbmVudDogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uY29tcG9uZW50LXNlY29uZGFyeTogI2ZmZmZmZmNjOyAtLWZpZ21hLWNvbG9yLWljb24tb25jb21wb25lbnQtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci1pY29uLW9uZGFuZ2VyOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLWljb24tb25kYW5nZXItc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItaWNvbi1vbmRhbmdlci10ZXJ0aWFyeTogI2ZmZmZmZjY2OyAtLWZpZ21hLWNvbG9yLWljb24tb25kaXNhYmxlZDogIzJjMmMyYzsgLS1maWdtYS1jb2xvci1pY29uLW9uaW52ZXJzZTogIzAwMDAwMGU2OyAtLWZpZ21hLWNvbG9yLWljb24tb25zZWxlY3RlZDogIzA1MDUwNTsgLS1maWdtYS1jb2xvci1pY29uLW9uc2VsZWN0ZWQtc2Vjb25kYXJ5OiAjZmZmZmZmYjM7IC0tZmlnbWEtY29sb3ItaWNvbi1vbnNlbGVjdGVkLXN0cm9uZzogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uc2VsZWN0ZWQtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci1pY29uLW9uc3VjY2VzczogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci1pY29uLW9uc3VjY2Vzcy1zZWNvbmRhcnk6ICNmZmZmZmZjYzsgLS1maWdtYS1jb2xvci1pY29uLW9uc3VjY2Vzcy10ZXJ0aWFyeTogI2ZmZmZmZjY2OyAtLWZpZ21hLWNvbG9yLWljb24tb253YXJuaW5nOiAjMDAwMDAwZTY7IC0tZmlnbWEtY29sb3ItaWNvbi1vbndhcm5pbmctc2Vjb25kYXJ5OiAjMDAwMDAwODA7IC0tZmlnbWEtY29sb3ItaWNvbi1vbndhcm5pbmctdGVydGlhcnk6ICMwMDAwMDA0ZDsgLS1maWdtYS1jb2xvci1pY29uLXByZXNzZWQ6ICMwYTZkYzI7IC0tZmlnbWEtY29sb3ItaWNvbi1zZWNvbmRhcnk6ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItaWNvbi1zZWNvbmRhcnktaG92ZXI6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItaWNvbi1zZWxlY3RlZDogIzdjYzRmODsgLS1maWdtYS1jb2xvci1pY29uLXNlbGVjdGVkLXNlY29uZGFyeTogIzdjYzRmODsgLS1maWdtYS1jb2xvci1pY29uLXNlbGVjdGVkLXRlcnRpYXJ5OiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLWljb24tc3VjY2VzczogIzdjZDc5NzsgLS1maWdtYS1jb2xvci1pY29uLXN1Y2Nlc3MtcHJlc3NlZDogI2E1ZTViNzsgLS1maWdtYS1jb2xvci1pY29uLXN1Y2Nlc3Mtc2Vjb25kYXJ5OiAjN2NkNzk3OyAtLWZpZ21hLWNvbG9yLWljb24tc3VjY2Vzcy10ZXJ0aWFyeTogIzdjZDc5NzsgLS1maWdtYS1jb2xvci1pY29uLXRlcnRpYXJ5OiAjMzMzMzMzOyAtLWZpZ21hLWNvbG9yLWljb24tdGVydGlhcnktaG92ZXI6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItaWNvbi13YXJuaW5nOiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLWljb24td2FybmluZy1wcmVzc2VkOiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLWljb24td2FybmluZy1zZWNvbmRhcnk6ICNmN2QxNWY7IC0tZmlnbWEtY29sb3ItaWNvbi13YXJuaW5nLXRlcnRpYXJ5OiAjZjdkMTVmOyAtLWZpZ21hLWNvbG9yLXRleHQ6ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItdGV4dC1icmFuZDogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LWJyYW5kLXNlY29uZGFyeTogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LWJyYW5kLXRlcnRpYXJ5OiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLXRleHQtY29tcG9uZW50OiAjN2I2MWZmOyAtLWZpZ21hLWNvbG9yLXRleHQtY29tcG9uZW50LXByZXNzZWQ6ICNkNmI2ZmI7IC0tZmlnbWEtY29sb3ItdGV4dC1jb21wb25lbnQtc2Vjb25kYXJ5OiAjNGU0MjhhOyAtLWZpZ21hLWNvbG9yLXRleHQtY29tcG9uZW50LXRlcnRpYXJ5OiAjNGU0MjhhOyAtLWZpZ21hLWNvbG9yLXRleHQtZGFuZ2VyOiAjZmNhMzk3OyAtLWZpZ21hLWNvbG9yLXRleHQtZGFuZ2VyLXNlY29uZGFyeTogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci10ZXh0LWRhbmdlci10ZXJ0aWFyeTogI2ZjYTM5NzsgLS1maWdtYS1jb2xvci10ZXh0LWRpc2FibGVkOiAjYjNiM2IzOyAtLWZpZ21hLWNvbG9yLXRleHQtaG92ZXI6ICMwNTA1MDU7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmJyYW5kOiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLXRleHQtb25icmFuZC1zZWNvbmRhcnk6ICNmZmZmZmZjYzsgLS1maWdtYS1jb2xvci10ZXh0LW9uYnJhbmQtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci10ZXh0LW9uY29tcG9uZW50OiAjZmZmZmZmOyAtLWZpZ21hLWNvbG9yLXRleHQtb25jb21wb25lbnQtc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmNvbXBvbmVudC10ZXJ0aWFyeTogI2ZmZmZmZjY2OyAtLWZpZ21hLWNvbG9yLXRleHQtb25kYW5nZXI6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmRhbmdlci1zZWNvbmRhcnk6ICNmZmZmZmZjYzsgLS1maWdtYS1jb2xvci10ZXh0LW9uZGFuZ2VyLXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbmRpc2FibGVkOiAjMmMyYzJjOyAtLWZpZ21hLWNvbG9yLXRleHQtb25pbnZlcnNlOiAjMDAwMDAwZTY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnNlbGVjdGVkOiAjZmZmZmZmZTY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnNlbGVjdGVkLXNlY29uZGFyeTogI2ZmZmZmZmIzOyAtLWZpZ21hLWNvbG9yLXRleHQtb25zZWxlY3RlZC1zdHJvbmc6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnNlbGVjdGVkLXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnN1Y2Nlc3M6ICNmZmZmZmY7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnN1Y2Nlc3Mtc2Vjb25kYXJ5OiAjZmZmZmZmY2M7IC0tZmlnbWEtY29sb3ItdGV4dC1vbnN1Y2Nlc3MtdGVydGlhcnk6ICNmZmZmZmY2NjsgLS1maWdtYS1jb2xvci10ZXh0LW9ud2FybmluZzogIzAwMDAwMGU2OyAtLWZpZ21hLWNvbG9yLXRleHQtb253YXJuaW5nLXNlY29uZGFyeTogIzAwMDAwMDgwOyAtLWZpZ21hLWNvbG9yLXRleHQtb253YXJuaW5nLXRlcnRpYXJ5OiAjMDAwMDAwNGQ7IC0tZmlnbWEtY29sb3ItdGV4dC1zZWNvbmRhcnk6ICMzMzMzMzM7IC0tZmlnbWEtY29sb3ItdGV4dC1zZWNvbmRhcnktaG92ZXI6ICMwNTA1MDU7IC0tZmlnbWEtY29sb3ItdGV4dC1zZWxlY3RlZDogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LXNlbGVjdGVkLXNlY29uZGFyeTogIzdjYzRmODsgLS1maWdtYS1jb2xvci10ZXh0LXNlbGVjdGVkLXRlcnRpYXJ5OiAjN2NjNGY4OyAtLWZpZ21hLWNvbG9yLXRleHQtc3VjY2VzczogIzdjZDc5NzsgLS1maWdtYS1jb2xvci10ZXh0LXN1Y2Nlc3Mtc2Vjb25kYXJ5OiAjN2NkNzk3OyAtLWZpZ21hLWNvbG9yLXRleHQtc3VjY2Vzcy10ZXJ0aWFyeTogIzdjZDc5NzsgLS1maWdtYS1jb2xvci10ZXh0LXRlcnRpYXJ5OiAjZmZmZmZmNjY7IC0tZmlnbWEtY29sb3ItdGV4dC10ZXJ0aWFyeS1ob3ZlcjogI2ZmZmZmZjsgLS1maWdtYS1jb2xvci10ZXh0LXdhcm5pbmc6ICNmN2QxNWY7IC0tZmlnbWEtY29sb3ItdGV4dC13YXJuaW5nLXNlY29uZGFyeTogI2Y3ZDE1ZjsgLS1maWdtYS1jb2xvci10ZXh0LXdhcm5pbmctdGVydGlhcnk6ICNmN2QxNWY7IC0tZmlnbWEtY29sb3ItYmctc2xvdDogcmdiYSgyNDMsIDIyLCAxNzYsIC4yNSk7IC0tZmlnbWEtY29sb3ItYm9yZGVyLXNsb3Q6ICNmMzE2YjA7IH08L3N0eWxlPiIgKyBldmVudC5kYXRhKQogICAgICAgIH0KICAgICAgfQoKICA8L3NjcmlwdD4=:4:20)",
+          "timestamp": "2026-03-08T21:14:42.334Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’m looking up React error `#299` and checking the UI bootstrap path against it so I can fix the actual root cause instead of guessing.",
+          "timestamp": "2026-03-08T21:14:51.988Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "web_search",
+          "input": {
+            "searchTerm": "React error 299 createRoot meaning react.dev/errors/299",
+            "toolCallId": "call_YXCAPVu6Eb0TBGhtKPczFaK5\nfc_03e24054bef2124e0169ade6cc1a04819bb60fb0768280c2b8"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "React `#299` confirms the issue: `createRoot(...)` is receiving `null`. I’m making the UI bootstrap resilient by creating the root node itself if Figma’s wrapper doesn’t preserve the original `<div id=\"root\">`.",
+          "timestamp": "2026-03-08T21:15:07.312Z"
+        },
+        {
+          "type": "assistant",
+          "text": "I’ve hardened the mount path. Rebuilding now so you can retry with a bundle that no longer depends on Figma preserving the original root element.",
+          "timestamp": "2026-03-08T21:15:11.953Z"
+        },
+        {
+          "type": "assistant",
+          "text": "`React #299` means exactly: `createRoot(...): Target container is not a DOM element.`\n\nSo the Figma wrapper is still not giving the UI the original `#root` node reliably. I fixed that by changing the bootstrap to:\n\n- look for `#root`\n- create it if it does not exist\n- append it to `document.body`\n- then mount React\n\nI rebuilt successfully after that.\n\nWhat to do next:\n\n1. Run:\n```bash\nnpm run build\n```\n\n2. In Figma desktop:\n- remove the current dev plugin import\n- import `manifest.json` again\n\n3. Run the plugin again\n\nThis specific React error should now be resolved because the app no longer depends on Figma preserving the original root div.\n\nIf it still fails, send the next exact error. At that point it should be a narrower runtime issue, not the mount container problem anymore.",
+          "timestamp": "2026-03-08T21:15:29.067Z"
+        }
+      ],
+      "total_additions": 108,
+      "total_deletions": 39,
+      "accepted_lines": 87,
+      "overriden_lines": 0
+    },
+    "e9a3a303b56d2342": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "2f1a07b7-a214-4924-869c-935caf8707ab",
+        "model": "claude-4.6-sonnet-medium-thinking"
+      },
+      "human_author": "kenan <kenansharifov400@gmail.com>",
+      "messages": [
+        {
+          "type": "user",
+          "text": "this is figma plugin , fix error",
+          "timestamp": "2026-03-08T21:10:19.651Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Let me look at the modified files to understand the errors.",
+          "timestamp": "2026-03-08T21:10:22.309Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "src/**/*.ts",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "The build and lint both pass. Let me check if there's a TypeScript-specific issue or a runtime problem in the plugin.",
+          "timestamp": "2026-03-08T21:10:49.338Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "tsconfig*.json",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "src/ui/**/*.{ts,tsx}",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "Let me check what `__html__` looks like in the built output, since the plugin code references it:",
+          "timestamp": "2026-03-08T21:14:07.661Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Found it. `__html__` is left as a bare variable reference in `dist/code.js` — it's never replaced with the actual HTML content, so `figma.showUI(__html__, ...)` will throw a `ReferenceError` at runtime.\n\nThe fix requires two things:\n1. Build the UI first, then the plugin (so the HTML exists when the plugin build runs)\n2. In the plugin build, read `dist/index.html` and inject it via Vite's `define`",
+          "timestamp": "2026-03-08T21:14:46.290Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Now update the build order in `package.json` to build UI first, then the plugin:",
+          "timestamp": "2026-03-08T21:14:59.231Z"
+        },
+        {
+          "type": "tool_use",
+          "name": "glob_file_search",
+          "input": {
+            "globPattern": "scripts/**/*",
+            "targetDirectory": "/home/kenan/repositories/figma-doc-resolver"
+          }
+        },
+        {
+          "type": "assistant",
+          "text": "Now I have the full picture. The build has three issues:\n\n1. The order is wrong — the plugin is built before the UI exists, so `dist/index.html` can't be read for `__html__` injection\n2. `emptyOutDir` needs to be `true` for the UI build (now first) and `false` for the plugin build (now second)\n3. The postbuild script must run after the UI build but before the plugin build, so the fixed HTML is what gets injected\n\nLet me apply all the fixes:",
+          "timestamp": "2026-03-08T21:15:31.069Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Now verify the full `vite.config.ts` looks correct:",
+          "timestamp": "2026-03-08T21:15:37.554Z"
+        },
+        {
+          "type": "assistant",
+          "text": "Good. Now run the full build to confirm it works end-to-end:",
+          "timestamp": "2026-03-08T21:15:39.397Z"
+        },
+        {
+          "type": "assistant",
+          "text": "The build succeeds and you can see the effect immediately: `dist/code.js` went from **9.66 kB** (before — `__html__` was a bare undefined reference) to **223.14 kB** (after — the full inlined UI HTML is embedded as the `__html__` string). Let me confirm:",
+          "timestamp": "2026-03-08T21:15:51.637Z"
+        },
+        {
+          "type": "assistant",
+          "text": "`__html__` no longer appears as a bare identifier in `dist/code.js` — it's been fully replaced with the inlined HTML string.\n\nHere's what was wrong and what changed:\n\n**Root cause:** `figma.showUI(__html__, ...)` was calling with an undefined variable. The plugin was built _before_ the UI, so `dist/index.html` didn't exist yet when the plugin build ran — meaning `__html__` was left as an unresolved global that would throw `ReferenceError` at runtime.\n\n**Fixes applied:**\n\n1. **`package.json`** — reversed the build order to `ui → postbuild → plugin`. The postbuild script (which fixes the `<script type=\"module\">` → `<script>` tag) now also runs before the plugin build so the cleaned-up HTML is what gets embedded.\n\n2. **`vite.config.ts`** — added `readFileSync('dist/index.html')` + a `define: { __html__: JSON.stringify(html) }` in the plugin build config so Rollup replaces every `__html__` reference with the actual HTML string literal. Also swapped `emptyOutDir`: UI build now clears `dist/` (`true`) and the plugin build preserves it (`false`).",
+          "timestamp": "2026-03-08T21:15:57.147Z"
+        }
+      ],
+      "total_additions": 9,
+      "total_deletions": 3,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  }
+}
