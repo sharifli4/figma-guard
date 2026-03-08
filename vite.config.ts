@@ -6,7 +6,7 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   build: {
-    target: 'es2022',
+    target: 'es2019',
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
