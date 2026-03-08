@@ -1,0 +1,23 @@
+{
+  "name": "Figma Rules Plugin",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "main": "dist/code.js",
+  "ui": "dist/index.html",
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "reasoning": "The plugin connects to configured LLM providers for validation, scan, and chat requests.",
+    "allowedDomains": [
+      "https://api.openai.com",
+      "https://api.anthropic.com",
+      "https://generativelanguage.googleapis.com",
+      "https://openrouter.ai"
+    ],
+    "devAllowedDomains": [
+      "http://localhost:11434",
+      "http://127.0.0.1:11434",
+      "http://localhost:1234",
+      "http://127.0.0.1:1234"
+    ]
+  }
+}
